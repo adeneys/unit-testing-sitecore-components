@@ -1,0 +1,19 @@
+﻿@using  Sitecore.Links
+@model UnitTestingSitecoreComponents.Web.Models.EntryCategories
+
+@if(Model.CategoryItems.Any())
+{
+    <div class="wb-entry-categories wb-panel">
+        <h3>(Partial) Posted in:</h3>
+        <ul>
+            @foreach (var categoryItem in @Model.CategoryItems)
+            {
+                <li>
+                    <a href="@LinkManager.GetItemUrl(categoryItem)">
+                        @Html.Sitecore().Field("Title", categoryItem)
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}

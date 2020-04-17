@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <sitecore>
+    <services>
+      <!-- Register controllers so they can participate in dependency injection -->
+      <register
+        serviceType="UnitTestingSitecoreComponents.Web.Controllers.EntryCategoriesController, UnitTestingSitecoreComponents.Web"
+        implementationType="UnitTestingSitecoreComponents.Web.Controllers.EntryCategoriesController, UnitTestingSitecoreComponents.Web" />
+    </services>
+  </sitecore>
+</configuration>

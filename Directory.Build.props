@@ -1,0 +1,3 @@
+<Project>
+  <Import Project="deploy.props" Condition="Exists('deploy.props')" />
+</Project>

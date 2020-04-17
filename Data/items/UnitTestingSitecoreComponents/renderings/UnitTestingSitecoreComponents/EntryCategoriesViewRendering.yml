@@ -1,0 +1,21 @@
+﻿---
+ID: "c9cb0913-815c-4c8d-840d-f61920247146"
+Parent: "2c47ce0f-e221-4afd-9148-85062107f856"
+Template: "99f8905d-4a87-4eb8-9f8b-a9bebfb3add6"
+Path: /sitecore/layout/Renderings/UnitTestingSitecoreComponents/EntryCategoriesViewRendering
+DB: master
+SharedFields:
+- ID: "51b435bc-f7b9-478a-9c51-52916af96ff5"
+  Hint: Path
+  Value: /Views/Rendering/EntryCategories.cshtml
+- ID: "ddab263e-b42e-419a-aa6f-081b7393ca38"
+  Hint: Model
+  Value: /sitecore/layout/Models/UnitTestingSitecoreComponents/EntryCategoriesRenderingModel
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200417T022222Z

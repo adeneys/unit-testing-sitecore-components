@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <DeployPath>C:\inetpub\wwwroot\sc930.sc</DeployPath>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unicorn" Version="4.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Config\Include\Unicorn\Unicorn.AutoPublish.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.DataProvider.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.PowerShell.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.UI.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.UI.IdentityServer.config" />
+    <Content Include="App_Config\Include\UnitTestingSitecoreComponents\Unicorn.config" />
+  </ItemGroup>
+
+  <Target Name="Deploy" AfterTargets="PostBuildEvent" Condition="'$(DeployPath)' != ''">
+    <!-- We have additional dependencies in this project (Unicorn), so need to copy all those files -->
+    <ItemGroup>
+      <DeployFilesBin Include="$(OutDir)*.dll" />
+      <!-- There's no code in this project -->
+      <DeployFilesBin Remove="$(OutDir)$(AssemblyName).dll" />
+    </ItemGroup>
+    
+    <Copy SourceFiles="@(DeployFilesBin)" DestinationFolder="$(DeployPath)\bin" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Content)" DestinationFiles="$(DeployPath)\%(RelativeDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
+	
+	<CallTarget Targets="UpdateConfig" />
+  </Target>
+  
+  <Target Name="UpdateConfig">
+	<XmlPoke
+		XmlInputPath="$(DeployPath)\App_Config\Include\UnitTestingSitecoreComponents\Unicorn.config"
+		Query="/configuration/sitecore/unicorn/configurations/configuration[@name='UnitTestingSitecoreComponents']/targetDataStore/@physicalRootPath"
+		Value="$(MSBuildThisFileDirectory)items\%24(configurationName)"
+	/>
+  </Target>
+
+</Project>

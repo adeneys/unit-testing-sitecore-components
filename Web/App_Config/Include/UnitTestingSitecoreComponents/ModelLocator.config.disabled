@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <sitecore>
+    <pipelines>
+      <initialize>
+        <processor type="UnitTestingSitecoreComponents.Web.Pipelines.Initialize.RegisterModelLocator, UnitTestingSitecoreComponents.Web" />
+      </initialize>
+    </pipelines>
+  </sitecore>
+</configuration>

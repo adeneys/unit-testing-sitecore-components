@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>UnitTestingSitecoreComponents.Web</AssemblyName>
+    <RootNamespace>UnitTestingSitecoreComponents.Web</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="App_Config\Include\UnitTestingSitecoreComponents\Controllers.config.disabled" />
+    <None Remove="App_Config\Include\UnitTestingSitecoreComponents\ModelLocator.config.disabled" />
+    <None Remove="Views\EntryCategories.cshtml" />
+    <None Remove="Views\Rendering\EntryCategories.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Config\Include\UnitTestingSitecoreComponents\Controllers.config.disabled" />
+    <Content Include="App_Config\Include\UnitTestingSitecoreComponents\ModelLocator.config.disabled" />
+    <Content Include="Views\Partial\EntryCategories.cshtml" />
+    <Content Include="Views\Rendering\EntryCategories.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sitecore.Kernel" Version="9.3" />
+    <PackageReference Include="Sitecore.Mvc" Version="9.3" />
+  </ItemGroup>
+
+  <Target Name="Deploy" AfterTargets="PostBuildEvent" Condition="'$(DeployPath)' != ''">
+    <Copy SourceFiles="$(OutDir)$(AssemblyName).dll" DestinationFolder="$(DeployPath)\bin" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Content)" DestinationFiles="$(DeployPath)\%(RelativeDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>
