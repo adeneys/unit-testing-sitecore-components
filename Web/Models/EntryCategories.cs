@@ -1,19 +1,18 @@
-﻿using Sitecore.Data.Items;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace UnitTestingSitecoreComponents.Web.Models
 {
     public class EntryCategories
     {
-        public IEnumerable<Item> CategoryItems { get; }
+        public IEnumerable<Category> Categories { get; }
 
-        public EntryCategories(IEnumerable<Item> categoryItems)
+        public EntryCategories(IEnumerable<Category> categories)
         {
-            if (categoryItems == null)
-                throw new ArgumentNullException(nameof(categoryItems));
+            if (categories == null)
+                throw new ArgumentNullException(nameof(categories));
 
-            CategoryItems = categoryItems;
+            Categories = categories;
         }
     }
 }

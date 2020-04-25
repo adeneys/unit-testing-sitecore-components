@@ -39,7 +39,7 @@ namespace UnitTest.Controllers
             Assert.IsType<EntryCategories>(partialViewResult.Model);
 
             var model = partialViewResult.Model as EntryCategories;
-            Assert.Empty(model.CategoryItems);
+            Assert.Empty(model.Categories);
         }
 
         [Fact(Skip = "Need to mock items")]
