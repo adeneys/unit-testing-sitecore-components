@@ -8,7 +8,7 @@ using UnitTestingSitecoreComponents.Web.Models;
 
 namespace UnitTestingSitecoreComponents.Web.Taxonomy
 {
-    public class EntryTaxonomy
+    public class EntryTaxonomy : IEntryTaxonomy
     {
         private BaseLinkManager _linkManager;
 

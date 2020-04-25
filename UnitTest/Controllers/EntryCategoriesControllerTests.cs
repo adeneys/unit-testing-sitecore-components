@@ -1,18 +1,35 @@
-﻿using System.Web.Mvc;
+﻿using NSubstitute;
+using Sitecore.Data.Items;
+using System;
+using System.Linq;
+using System.Web.Mvc;
+using UnitTest.Comparers;
 using UnitTestingSitecoreComponents.Web.Controllers;
 using UnitTestingSitecoreComponents.Web.Models;
+using UnitTestingSitecoreComponents.Web.Taxonomy;
 using Xunit;
 
 namespace UnitTest.Controllers
 {
     public class EntryCategoriesControllerTests
     {
-        [Fact(Skip = "Need to mock items")]
+        [Fact]
+        public void Ctor_TaxonomyIsNull_ThrowsException()
+        {
+            // arrange
+            Action sutAction = () => new EntryCategoriesController(null);
+
+            // act, assert
+            var ex = Assert.Throws<ArgumentNullException>(sutAction);
+            Assert.Equal("entryTaxonomy", ex.ParamName);
+        }
+
+        [Fact]
         public void Index_WhenCalled_ReturnsPartialView()
         {
             // arrange
-            //Sitecore.Context.Item = ??;
-            var sut = new EntryCategoriesController();
+            var taxonomy = Substitute.For<IEntryTaxonomy>();
+            var sut = new EntryCategoriesController(taxonomy);
 
             // act
             var result = sut.Index();
@@ -24,12 +41,12 @@ namespace UnitTest.Controllers
             Assert.Equal("/Views/Partial/EntryCategories.cshtml", partialViewResult.ViewName);
         }
 
-        [Fact(Skip = "Need to mock items")]
-        public void Index_ContextItemHasNoCategories_ModelCategoriesIsEmpty()
+        [Fact]
+        public void Index_NoCategories_ModelCategoriesIsEmpty()
         {
             // arrange
-            //Sitecore.Context.Item = ??;
-            var sut = new EntryCategoriesController();
+            var taxonomy = Substitute.For<IEntryTaxonomy>();
+            var sut = new EntryCategoriesController(taxonomy);
 
             // act
             var result = sut.Index();
@@ -42,12 +59,20 @@ namespace UnitTest.Controllers
             Assert.Empty(model.Categories);
         }
 
-        [Fact(Skip = "Need to mock items")]
-        public void Index_ContextItemHasCategories_IncludesCategoriesInModel()
+        [Fact]
+        public void Index_HasCategories_IncludesCategoriesInModel()
         {
             // arrange
-            //Sitecore.Context.Item = ??;
-            var sut = new EntryCategoriesController();
+            var categories = new[]
+            {
+                new Category { Title = "cat1", Url = "link1" },
+                new Category { Title = "cat2", Url = "link2" }
+            };
+
+            var taxonomy = Substitute.For<IEntryTaxonomy>();
+            taxonomy.GetCategories(Arg.Any<Item>()).Returns(categories);
+
+            var sut = new EntryCategoriesController(taxonomy);
 
             // act
             var result = sut.Index();
@@ -57,7 +82,7 @@ namespace UnitTest.Controllers
             Assert.IsType<EntryCategories>(partialViewResult.Model);
 
             var model = partialViewResult.Model as EntryCategories;
-            //Assert.Equal(new[] { cat1, cat2 }, model.CategoryItems);
+            Assert.Equal(categories, model.Categories.ToArray(), new CategoryComparer());
         }
     }
 }

@@ -7,15 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="App_Config\Include\UnitTestingSitecoreComponents\Controllers.config.disabled" />
+    <None Remove="App_Config\Include\UnitTestingSitecoreComponents\Controllers.config" />
     <None Remove="App_Config\Include\UnitTestingSitecoreComponents\ModelLocator.config.disabled" />
+    <None Remove="App_Config\Include\UnitTestingSitecoreComponents\Services.config" />
     <None Remove="Views\EntryCategories.cshtml" />
     <None Remove="Views\Rendering\EntryCategories.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="App_Config\Include\UnitTestingSitecoreComponents\Controllers.config.disabled" />
+    <Content Include="App_Config\Include\UnitTestingSitecoreComponents\Controllers.config" />
     <Content Include="App_Config\Include\UnitTestingSitecoreComponents\ModelLocator.config.disabled" />
+    <Content Include="App_Config\Include\UnitTestingSitecoreComponents\Services.config" />
     <Content Include="Views\Partial\EntryCategories.cshtml" />
     <Content Include="Views\Rendering\EntryCategories.cshtml" />
   </ItemGroup>
