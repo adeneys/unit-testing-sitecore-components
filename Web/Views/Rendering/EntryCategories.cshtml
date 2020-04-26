@@ -1,16 +1,15 @@
-﻿@using  Sitecore.Links
-@model UnitTestingSitecoreComponents.Web.RenderingModels.EntryCategoriesRenderingModel
+﻿@model UnitTestingSitecoreComponents.Web.RenderingModels.EntryCategoriesRenderingModel
 
-@if(Model.CategoryItems.Any())
+@if(Model.Categories.Any())
 {
     <div class="wb-entry-categories wb-panel">
         <h3>(View Rendering) Posted in:</h3>
         <ul>
-            @foreach (var categoryItem in @Model.CategoryItems)
+            @foreach (var category in @Model.Categories)
             {
                 <li>
-                    <a href="@LinkManager.GetItemUrl(categoryItem)">
-                        @Html.Sitecore().Field("Title", categoryItem)
+                    <a href="@category.Url">
+                        @category.Title
                     </a>
                 </li>
             }

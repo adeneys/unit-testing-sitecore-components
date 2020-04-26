@@ -1,21 +1,30 @@
-﻿using Sitecore.Data.Fields;
-using Sitecore.Data.Items;
-using Sitecore.Mvc.Presentation;
+﻿using Sitecore.Mvc.Presentation;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using UnitTestingSitecoreComponents.Web.Models;
+using UnitTestingSitecoreComponents.Web.Taxonomy;
 
 namespace UnitTestingSitecoreComponents.Web.RenderingModels
 {
     public class EntryCategoriesRenderingModel : RenderingModel
     {
-        public IEnumerable<Item> CategoryItems { get; set; }
+        private IEntryTaxonomy _entryTaxonomy;
+
+        public IEnumerable<Category> Categories { get; set; }
+
+        public EntryCategoriesRenderingModel(IEntryTaxonomy entryTaxonomy)
+        {
+            if (entryTaxonomy == null)
+                throw new ArgumentNullException(nameof(entryTaxonomy));
+
+            _entryTaxonomy = entryTaxonomy;
+        }
 
         public override void Initialize(Rendering rendering)
         {
             base.Initialize(rendering);
 
-            var categoryField = (MultilistField)Item.Fields["Category"];
-            CategoryItems = categoryField?.GetItems() ?? Enumerable.Empty<Item>();
+            Categories = _entryTaxonomy.GetCategories(Item);
         }
     }
 }
